@@ -13,7 +13,6 @@ echo "Welcome! ".$player->getRole();
 $enemy = new Character('enemy');
 
 // run
-// $step = 0;
 while($player->getCurrentHp() > 0 && $enemy->getCurrentHp() > 0) {
   
   //display my hp + enemy
@@ -31,14 +30,16 @@ while($player->getCurrentHp() > 0 && $enemy->getCurrentHp() > 0) {
   $option = fgets(STDIN);
   echo "\n";
 
+  $random = rand(20, 40);
+
   switch($option) {
     case 1:
-      $randomBaseAttack = rand(20, 40);
+      $randomBaseAttack = $random;
       echo "You hit enemy -".$randomBaseAttack."\n";
       $enemy->attack($randomBaseAttack);
 
       // automated enemy action
-      $randomizeAction = rand(1,2);
+      $randomizeAction = $random;
       enemyTurn($randomizeAction, $player, $enemy);
     break;
 
@@ -60,18 +61,12 @@ while($player->getCurrentHp() > 0 && $enemy->getCurrentHp() > 0) {
       echo "gak ada pilihan itu ngap :)) \n\n";
     break;
   }
-  
-  // stopper
-  // if($step == 5) {
-  //   exit;
-  // }
-  // $step++;
 }
 
-if($player->getCurrentHp() <= 0) {
-  echo "\nEnemy Win!\n\n";
-}
-
-if ($enemy->getCurrentHp() <= 0) {
-  echo "\nYou Win!\n\n";
+if($player->getCurrentHp() <= 0 || $enemy->getCurrentHp() <= 0) {
+  if ($player->getCurrentHp() > $enemy->getCurrentHp()) {
+    echo "\nYou Win!\n\n";
+  } else {
+    echo "\nEnemy Win!\n\n";
+  }
 }
